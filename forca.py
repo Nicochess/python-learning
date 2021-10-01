@@ -10,7 +10,6 @@ def jogar():
     acertou = False
 
     while(not enforcou and not acertou):
-        print(letras_corretas)
         chute = input("Qual letra? ")
         chute = chute.strip()
         index = 0
@@ -20,11 +19,12 @@ def jogar():
                 letras_corretas[index] = letra
                 letras_faltando = letras_corretas.count("_")
             index = index + 1
+
+        print("{} letras faltando.".format(letras_faltando))
+        print("Jogando...")
+        print(letras_corretas)
         if(letras_faltando == 0):
             break
-        else:
-            print(letras_faltando)
-            print("Jogando...")
 
 if(__name__ == "__main__"):
     jogar()
