@@ -18,13 +18,14 @@ def jogar():
             if(chute.upper() == letra.upper()):
                 letras_corretas[index] = letra
                 letras_faltando = letras_corretas.count("_")
+                if(letras_faltando == 0):
+                    print("Taraaaannnn, você ganhou!!!")
+                    acertou = True
             index = index + 1
 
         print("{} letras faltando.".format(letras_faltando))
         print("Jogando...")
         print(letras_corretas)
-        if(letras_faltando == 0):
-            break
 
 if(__name__ == "__main__"):
     jogar()

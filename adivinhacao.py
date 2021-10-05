@@ -4,7 +4,7 @@ def jogar():
     print("Seja bem-vindo ao jogo de Adivinhação!")
     print("*===================================*")
 
-    secret_num = random.randrange(1, 101)
+    secret_num = random.randrange(-1, 101)
     total_tentativas = 0
     rodada = 1
     pontos = 1000
