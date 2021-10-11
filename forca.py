@@ -1,9 +1,7 @@
 def jogar():
     import os
 
-    print("*===================================*")
-    print("**Seja bem-vindo ao jogo da Forca!**")
-    print("*===================================*")
+    intro()
 
     choice = int(input("Qual modo de jogo deseja jogar, contra a máquina (1), contra outro player(2) ? "))
 
@@ -13,16 +11,15 @@ def jogar():
         print("Está na hora do desafiante escolher a palavra dele.")
         secret_word = input("Digite a palavra: ").strip().upper()
         os.system('cls')
-        letras_corretas = [ "_" for letra in secret_word]
+
+        letras_corretas = create_word_place(secret_word)
 
         enforcou = False
         acertou = False
 
         while(not enforcou and not acertou):
             os.system("cls")
-            print(letras_corretas)
-            chute = input("Qual letra? ")
-            chute = chute.strip().upper()
+            chute = word_request(letras_corretas)
             index = 0
             
             for letra in secret_word:
@@ -31,10 +28,27 @@ def jogar():
                     letras_faltando = letras_corretas.count("_")
                     if(letras_faltando == 0):
                         os.system("cls")
-                        print(letras_corretas)
-                        print("Taraaaannnn, você ganhou!!!")
-                        acertou = True
+                        acertou = win(letras_corretas)
+
                 index = index + 1
+
+def intro():
+    print("*===================================*")
+    print("**Seja bem-vindo ao jogo da Forca!**")
+    print("*===================================*")
+
+def create_word_place(secret_word):
+    return [ "_" for letra in secret_word]
+
+def word_request(letras_corretas):
+    print(letras_corretas)
+    chute = input("Qual letra? ")
+    return chute.strip().upper()
+
+def win(letras_corretas):
+    print(letras_corretas)
+    print("Taraaaannnn, você ganhou!!!")
+    return True
 
 if(__name__ == "__main__"):
     jogar()
