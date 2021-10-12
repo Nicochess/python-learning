@@ -10,6 +10,7 @@ def jogar():
     elif(choice == 2):
         print("Está na hora do desafiante escolher a palavra dele.")
         secret_word = input("Digite a palavra: ").strip().upper()
+        tip = input("Dê uma dica simples: ").upper()
         os.system('cls')
 
         letras_corretas = create_word_place(secret_word)
@@ -17,27 +18,31 @@ def jogar():
         enforcou = False
         acertou = False
         erros = 0
+        tentativas = []
 
         while(not enforcou and not acertou):
-            desenhar_forca(erros)
+            print(tip)
+            desenhar_forca(erros, tentativas)
             chute = word_request(letras_corretas)
+            tentativas.append(chute)
 
             if(chute in secret_word):
                 chute_certo(secret_word, chute, letras_corretas)
                 os.system("cls")
             else:
                 erros += 1
-                desenhar_forca(erros)
+                desenhar_forca(erros, tentativas)
                 os.system("cls")
 
             enforcou = erros == 7
             acertou = "_" not in letras_corretas
 
         if(acertou):
-            print("Taraaaannnn, você ganhou!!!")
+            you_win()
         else:
-            desenhar_forca(erros)
-            print("Você perdeu tente de novo :(")
+            desenhar_forca(erros, tentativas)
+            print("A palavra era {}".format(secret_word))
+            print("Você perdeu, tente de novo :(")
 
 def intro():
     print("*===================================*")
@@ -59,9 +64,20 @@ def chute_certo(secret_word, chute, letras_corretas):
             letras_corretas[index] = letra
         index += 1
 
-def desenhar_forca(erros):
+def you_win():
+    print("   _________   ")
+    print(" _|         |_ ")
+    print("| |         | |")
+    print(" -|         |- ")
+    print("   \       /   ")
+    print("    \     /    ")
+    print("   __\___/__   ")
+    print("  |_________|   ")
+    print("Taraaaannnn, você ganhou!!!")
+
+def desenhar_forca(erros, tentativas):
     print("__________     ")
-    print("|        |     ")
+    print("|        |   {}".format(tentativas))
     print("|        |     ")
 
     if(erros == 0):
