@@ -16,21 +16,28 @@ def jogar():
 
         enforcou = False
         acertou = False
+        erros = 0
 
         while(not enforcou and not acertou):
-            os.system("cls")
+            desenhar_forca(erros)
             chute = word_request(letras_corretas)
-            index = 0
-            
-            for letra in secret_word:
-                if(chute == letra):
-                    letras_corretas[index] = letra
-                    letras_faltando = letras_corretas.count("_")
-                    if(letras_faltando == 0):
-                        os.system("cls")
-                        acertou = win(letras_corretas)
 
-                index = index + 1
+            if(chute in secret_word):
+                chute_certo(secret_word, chute, letras_corretas)
+                os.system("cls")
+            else:
+                erros += 1
+                desenhar_forca(erros)
+                os.system("cls")
+
+            enforcou = erros == 7
+            acertou = "_" not in letras_corretas
+
+        if(acertou):
+            print("Taraaaannnn, você ganhou!!!")
+        else:
+            desenhar_forca(erros)
+            print("Você perdeu tente de novo :(")
 
 def intro():
     print("*===================================*")
@@ -45,10 +52,67 @@ def word_request(letras_corretas):
     chute = input("Qual letra? ")
     return chute.strip().upper()
 
-def win(letras_corretas):
-    print(letras_corretas)
-    print("Taraaaannnn, você ganhou!!!")
-    return True
+def chute_certo(secret_word, chute, letras_corretas):
+    index = 0
+    for letra in secret_word:
+        if(chute == letra):
+            letras_corretas[index] = letra
+        index += 1
+
+def desenhar_forca(erros):
+    print("__________     ")
+    print("|        |     ")
+    print("|        |     ")
+
+    if(erros == 0):
+        print("|              ")
+        print("|              ")
+        print("|              ")
+        print("|              ")
+
+    if(erros == 1):
+        print("|       (_)    ")
+        print("|              ")
+        print("|              ")
+        print("|              ")
+
+    if(erros == 2):
+        print("|       (_)    ")
+        print("|        |     ")
+        print("|              ")
+        print("|              ")
+
+    if(erros == 3):
+        print("|       (_)    ")
+        print("|        |     ")
+        print("|        |     ")
+        print("|              ")
+
+    if(erros == 4):
+        print("|       (_)    ")
+        print("|        |     ")
+        print("|        |     ")
+        print("|       /      ")
+
+    if(erros == 5):
+        print("|       (_)    ")
+        print("|        |     ")
+        print("|        |     ")
+        print("|       / \    ")
+
+    if(erros == 6):
+        print("|       (_)    ")
+        print("|        |/    ")
+        print("|        |     ")
+        print("|       / \    ")
+
+    if(erros == 7):
+        print("|       (_)    ")
+        print("|       \|/    ")
+        print("|        |     ")
+        print("|       / \    ")
+
+    print("|___________   ")
 
 if(__name__ == "__main__"):
     jogar()
