@@ -5,11 +5,8 @@ url = url.replace(" ", "")
 print(url)
 
 #O metodo find retorna o index da posição do caractere passado como parametro
-interrogacao_index = url.find('?')
 
-site_domain = url[:interrogacao_index]
-
-search_query = url[interrogacao_index + 1:]
+# search_query = url[interrogacao_index + 1:]
 
 search_param = 'moedaOrigem'
 
@@ -31,3 +28,12 @@ class Extractor_URL:
     
     def __sanitaze_url(self, url):
         return url.strip()
+
+    @property
+    def domain_site(self):
+        interrogacao_index = self.url.find('?')
+        site_domain = self.url[:interrogacao_index]
+        return site_domain
+    
+bytebank = Extractor_URL(url)
+print(bytebank.domain_site)
