@@ -16,6 +16,15 @@ class Extractor_URL:
     def __sanitaze_url(self, url):
         return url.strip()
     
+    def get_param(self, param):
+        param_index = self.url.find(param)
+        comercial_e = self.url.find('&', param_index)
+        if comercial_e == -1:
+            param_value = self.url[param_index:]
+        else:
+            param_value = self.url[param_index : comercial_e]
+        return param_value
+    
     def validate_url(self):
         if not self.url:
             raise ValueError('URL não pode estar vazia')
@@ -36,3 +45,4 @@ class Extractor_URL:
     
 bytebank = Extractor_URL(url)
 print(bytebank.domain_site)
+print(bytebank.get_param("moedaDestino"))
