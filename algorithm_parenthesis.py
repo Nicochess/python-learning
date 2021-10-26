@@ -13,8 +13,8 @@ def balanced(expression):
     elif count == 0:
         for char in expression[::-1]:
             if char == "(":
-                return False
+                return unBalanced
             elif char == ")":
-                return True
+                return not unBalanced
     else:
         return unBalanced
